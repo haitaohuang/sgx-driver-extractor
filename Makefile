@@ -1,11 +1,11 @@
 ifneq ($(KERNELRELEASE),)
-	sgx-y := \
+	intel_sgx-y := \
 		sgx_main.o \
 		sgx_page_cache.o \
 		sgx_ioctl.o \
 		sgx_vma.o \
 		sgx_util.o
-	obj-m += sgx.o
+	obj-m += intel_sgx.o
 else
 KDIR := /lib/modules/$(shell uname -r)/build
 PWD  := $(shell pwd)
@@ -15,7 +15,7 @@ default:
 
 install: default
 	$(MAKE) INSTALL_MOD_DIR=kernel/drivers/intel/sgx -C $(KDIR) M=$(PWD) modules_install
-	sh -c "cat /etc/modules | grep -Fxq sgx || echo sgx >> /etc/modules"
+	sh -c "cat /etc/modules | grep -Fxq intel_sgx || echo intel_sgx >> /etc/modules"
 
 endif
 
